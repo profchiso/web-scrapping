@@ -7,7 +7,7 @@ const request = require('request');
 
 const funScript = async () => {
 	await request(
-		'https://www.businesslist.com.ng/category/restaurants',
+		'https://www.businesslist.com.ng/category/doctors-and-clinics/8',
 		(error, res, html) => {
 			if (error) console.log(error);
 			console.log('scraping stated....');
@@ -40,7 +40,7 @@ const funScript = async () => {
 							lat,
 							lng,
 						},
-						category: 'Restuarant',
+						category: 'Doctors',
 
 						link:
 							link === undefined
@@ -49,6 +49,7 @@ const funScript = async () => {
 						imageUrl,
 					});
 				});
+				//console.log(data);
 
 				let withLink = data.filter((elem) => elem.link !== undefined);
 				let final = [];
@@ -66,9 +67,10 @@ const funScript = async () => {
 								elem.website = site;
 								final.push(elem);
 								if (final.length === withLink.length) {
+									console.log(final);
 									fs.appendFile(
-										'schools8.json',
-										JSON.stringify(data),
+										'doctors8.json',
+										JSON.stringify(final),
 										'utf8',
 										function (err) {
 											if (err) throw err;
@@ -86,4 +88,3 @@ const funScript = async () => {
 };
 
 funScript();
-//console.log(withPhoneAndWebsite);
