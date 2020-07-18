@@ -6,7 +6,6 @@ const request = require('request');
 //https://www.businesslist.com.ng/category/doctors-and-clinics/3
 
 const funScript = async () => {
-	let withPhoneAndWebsite = [];
 	await request(
 		'https://www.businesslist.com.ng/category/restaurants',
 		(error, res, html) => {
@@ -42,8 +41,7 @@ const funScript = async () => {
 							lng,
 						},
 						category: 'Restuarant',
-						phone: '',
-						website: '',
+
 						link:
 							link === undefined
 								? undefined
@@ -52,7 +50,10 @@ const funScript = async () => {
 					});
 				});
 
-				data.forEach(async (elem) => {
+				let withLink = data.filter((elem) => elem.link !== undefined);
+				let final = [];
+
+				withLink.forEach(async (elem) => {
 					if (elem.link !== undefined) {
 						await request(`${elem.link}`, (error, res, html) => {
 							if (res.statusCode === 200) {
@@ -60,24 +61,29 @@ const funScript = async () => {
 
 								let phone = $('.phone').text();
 								let site = $('.weblinks').text();
-								console.log(phone, '  ', site);
+
+								elem.phone = phone;
+								elem.website = site;
+								final.push(elem);
+								if (final.length === withLink.length) {
+									fs.appendFile(
+										'schools8.json',
+										JSON.stringify(data),
+										'utf8',
+										function (err) {
+											if (err) throw err;
+											console.log('Saved!');
+										}
+									);
+								}
 							}
 						});
 					}
 				});
-
-				// console.log(data);
-				//console.log(data.length);
-
-				// fs.appendFile('schools8.json', JSON.stringify(data), 'utf8', function (
-				// 	err
-				// ) {
-				// 	if (err) throw err;
-				// 	console.log('Saved!');
-				// });
 			}
 		}
 	);
 };
 
 funScript();
+//console.log(withPhoneAndWebsite);
