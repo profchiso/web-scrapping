@@ -7,7 +7,7 @@ const request = require('request');
 
 const funScript = async () => {
 	await request(
-		'https://www.businesslist.com.ng/category/doctors-and-clinics/8',
+		'https://www.businesslist.com.ng/category/estate-agents/8',
 		(error, res, html) => {
 			if (error) console.log(error);
 			console.log('scraping stated....');
@@ -40,7 +40,7 @@ const funScript = async () => {
 							lat,
 							lng,
 						},
-						category: 'Doctors',
+						category: 'Real Estate',
 
 						link:
 							link === undefined
@@ -69,7 +69,7 @@ const funScript = async () => {
 								if (final.length === withLink.length) {
 									console.log(final);
 									fs.appendFile(
-										'doctors8.json',
+										'real-estate8.json',
 										JSON.stringify(final),
 										'utf8',
 										function (err) {
