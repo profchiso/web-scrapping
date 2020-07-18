@@ -1,13 +1,13 @@
 const fs = require('fs');
 
-const one = require('./real-estate1.json');
-const two = require('./real-estate2.json');
-const three = require('./real-estate3.json');
-const four = require('./real-estate4.json');
-const five = require('./real-estate5.json');
-const six = require('./real-estate6.json');
-const seven = require('./real-estate7.json');
-const eight = require('./real-estate8.json');
+const one = require('./schools1.json');
+const two = require('./schools2.json');
+const three = require('./schools3.json');
+const four = require('./schools4.json');
+const five = require('./schools5.json');
+const six = require('./schools6.json');
+const seven = require('./schools7.json');
+const eight = require('./schools8.json');
 
 const combine = [];
 
@@ -27,7 +27,7 @@ all.forEach((jsonArray) => {
 });
 console.log(combine.length);
 fs.appendFile(
-	'realEstateCombined.json',
+	'schoolsCombined.json',
 	JSON.stringify(combine),
 	'utf8',
 	function (err) {
